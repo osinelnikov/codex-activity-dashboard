@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Codex Activity Dashboard</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header>
+    <div><b class="brand">▣ CODEX / ACTIVITY</b><span id="connection">LOCAL · READ ONLY</span></div>
+    <div class="controls">
+      <input id="search" placeholder="Search sessions… /" aria-label="Search sessions">
+      <select id="session" aria-label="Session"></select>
+      <button id="refresh" title="Refresh (R)" aria-label="Refresh session list">↻</button>
+      <button id="show-all-panels" aria-label="Show all hidden panels" title="Show all panels (V)">SHOW ALL PANELS</button>
+      <button id="export">EXPORT</button>
+      <button id="print">PRINT / PDF</button>
+    </div>
+  </header>
+  <main>
+    <section class="welcome">
+      <div><small>SESSION / <span id="session-id">—</span></small><h1 id="title">Select a session</h1><p id="subtitle">Local Codex session metadata</p></div>
+      <div class="now"><small>NOW / STATE</small><b id="now">NO DATA</b><span id="freshness">—</span></div>
+    </section>
+    <div class="grid">
+      <section class="panel" data-panel="tokens">
+        <h2>TOKENS <button class="hide" title="Hide panel" aria-label="Hide tokens panel">×</button><span class="chart-modes"><button data-chart="bars">BARS</button><button data-chart="stacked">STACKED</button><button data-chart="donut">DONUT</button></span></h2>
+        <div class="stats" id="token-stats"></div><div class="chart" id="token-chart"></div><div class="token-legend" id="token-legend"></div>
+      </section>
+      <section class="panel" data-panel="time">
+        <h2>TIME <button class="hide" title="Hide panel" aria-label="Hide timing panel">×</button></h2>
+        <div id="time-stats" class="stats vertical"></div><p class="hint">Tool durations can overlap. Wall time uses only observed timestamps.</p>
+      </section>
+      <section class="panel" data-panel="context">
+        <h2>CONTEXT / LIMITS <button class="hide" title="Hide panel" aria-label="Hide context and limits panel">×</button></h2>
+        <div id="context-stats" class="stats vertical"></div>
+      </section>
+      <section class="panel" data-panel="tools">
+        <h2>ACTIVE TOOLS <button class="hide" title="Hide panel" aria-label="Hide tools panel">×</button></h2>
+        <div id="active-tools" class="rows"></div><h2 class="subhead">TOOLS / DURATION</h2>
+        <p class="hint">Statistics cover the last 500 observed calls.</p><div id="tools" class="rows"></div>
+      </section>
+      <section class="panel" data-panel="agents">
+        <h2>ORCHESTRATION <button class="hide" title="Hide panel" aria-label="Hide orchestration panel">×</button></h2>
+        <div id="agents" class="rows"></div><h2 class="subhead">SKILLS</h2><div id="skills" class="rows"></div>
+      </section>
+      <section class="panel" data-panel="files">
+        <h2>FILES CHANGED <button class="hide" title="Hide panel" aria-label="Hide changed files panel">×</button></h2>
+        <div id="files" class="rows"></div><p class="hint">Only paths from recognized FileChange events are shown.</p>
+      </section>
+      <section class="panel" data-panel="log">
+        <h2>LOG / METADATA <button class="hide" title="Hide panel" aria-label="Hide metadata log panel">×</button></h2>
+        <div id="log" class="log"></div>
+      </section>
+    </div>
+    <footer><span>No message, command, or tool output text</span><span id="model">MODEL — · EFFORT —</span></footer>
+  </main>
+  <dialog id="export-dialog">
+    <form method="dialog">
+      <h2>EXPORT REPORT</h2><p>Only the safe summary for the selected session or session list is included.</p>
+      <div class="controls">
+        <select id="scope"><option value="current">Current session</option><option value="all">All available sessions</option></select>
+        <select id="format"><option value="json">JSON</option><option value="md">Markdown</option><option value="html">HTML</option></select>
+        <button id="download">Download</button><button>Close</button>
+      </div>
+    </form>
+  </dialog>
+  <script src="/app.js" defer></script>
+</body>
+</html>
